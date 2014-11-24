@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdList extends Command {
-    public cmdList() {
+public class CmdList extends Command {
+    public CmdList() {
         setName("list");
     }
 

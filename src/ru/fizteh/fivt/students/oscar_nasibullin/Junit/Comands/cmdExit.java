@@ -7,13 +7,13 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdExit extends Command {
-    public cmdExit() {
+public class CmdExit extends Command {
+    public CmdExit() {
         setName("exit");
     }
 
     @Override
-    public String run(List<String> args){
+    public String run(List<String> args) {
         Table currTable = tableProvider.getTable(currentTableName);
         try {
             currTable.close();

@@ -5,15 +5,15 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdShowTables extends Command {
+public class CmdShowTables extends Command {
 
-    public cmdShowTables() {
+    public CmdShowTables() {
         setName("show");
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 2 ) {
+        if (args.size() != 2) {
             throw new IllegalArgumentException(
                     "Illegal arguments for show tables");
         }

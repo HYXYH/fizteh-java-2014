@@ -7,13 +7,13 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdCreate extends Command {
-    public cmdCreate() {
+public class CmdCreate extends Command {
+    public CmdCreate() {
         setName("create");
     }
 
     @Override
-    public String run(List<String> args){
+    public String run(List<String> args) {
         if (args.size() != 2) {
             throw new IllegalArgumentException("Illegal arguments for create");
         }

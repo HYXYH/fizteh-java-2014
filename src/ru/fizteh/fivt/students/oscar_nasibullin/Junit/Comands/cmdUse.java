@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdUse extends Command {
+public class CmdUse extends Command {
 
-    public cmdUse() {
+    public CmdUse() {
         setName("use");
     }
 
@@ -23,7 +23,7 @@ public class cmdUse extends Command {
         if (newTable != null) {
             if (tableProvider.getTable(currentTableName) != null) {
                 Integer unsaved = tableProvider.getTable(currentTableName).unsavedChangesNum();
-                if(unsaved == 0) {
+                if (unsaved == 0) {
                     tableProvider.getTable(currentTableName).close();
                 } else {
                     throw new Exception(unsaved.toString() + " unsaved changes");

@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdRemove extends Command {
-    public cmdRemove() {
+public class CmdRemove extends Command {
+    public CmdRemove() {
         setName("remove");
     }
 

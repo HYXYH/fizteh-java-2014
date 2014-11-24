@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdGet extends Command {
-    public cmdGet() {
+public class CmdGet extends Command {
+    public CmdGet() {
         setName("get");
     }
 

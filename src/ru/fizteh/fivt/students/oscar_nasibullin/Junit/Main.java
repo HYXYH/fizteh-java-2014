@@ -22,9 +22,9 @@ public class Main {
 
 
             Command[] commands = {
-                    new cmdCommit(), new cmdCreate(), new cmdDrop(), new cmdExit(),
-                    new cmdGet(), new cmdList(), new cmdPut(), new cmdRemove(),
-                    new cmdRollback(), new cmdShowTables(), new cmdUse()
+                    new CmdCommit(), new CmdCreate(), new CmdDrop(), new CmdExit(),
+                    new CmdGet(), new CmdList(), new CmdPut(), new CmdRemove(),
+                    new CmdRollback(), new CmdShowTables(), new CmdUse()
             };
 
             List<Command> commandList = new ArrayList<Command>(Arrays.asList(commands));

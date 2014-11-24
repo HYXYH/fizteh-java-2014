@@ -48,19 +48,19 @@ public class TableTest {
 
     @Test
     public void testPutNewElement() throws Exception {
-        assertEquals(null,testTable.put("key","val"));
-        assertEquals(null,testTable.put("k","v"));
-        assertEquals(null,testTable.put("x","y"));
+        assertEquals(null,testTable.put("key", "val"));
+        assertEquals(null,testTable.put("k", "v"));
+        assertEquals(null,testTable.put("x", "y"));
     }
 
     @Test
     public void testPutOverwritelement() throws Exception {
-        testTable.put("key","val");
-        testTable.put("k","v");
-        testTable.put("x","y");
-        assertEquals("val",testTable.put("key","value"));
-        assertEquals("v",testTable.put("k","v2"));
-        assertEquals("y",testTable.put("x","y2"));
+        testTable.put("key", "val");
+        testTable.put("k", "v");
+        testTable.put("x", "y");
+        assertEquals("val", testTable.put("key", "value"));
+        assertEquals("v", testTable.put("k", "v2"));
+        assertEquals("y", testTable.put("x", "y2"));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -70,9 +70,9 @@ public class TableTest {
 
     @Test
     public void testGet() throws Exception {
-        testTable.put("key","value");
-        testTable.put("k","v");
-        testTable.put("x","y");
+        testTable.put("key", "value");
+        testTable.put("k", "v");
+        testTable.put("x", "y");
         assertEquals("value", testTable.get("key"));
         assertEquals("v", testTable.get("k"));
         assertEquals("y", testTable.get("x"));
@@ -91,34 +91,34 @@ public class TableTest {
 
     @Test
     public void testRemove() throws Exception {
-        testTable.put("key","value");
+        testTable.put("key", "value");
         assertEquals("value", testTable.remove("key"));
     }
 
     @Test
     public void testSize() throws Exception {
-        testTable.put("k","v");
-        testTable.put("x","y");
+        testTable.put("k", "v");
+        testTable.put("x", "y");
         assertEquals(2, testTable.size());
     }
 
     @Test
     public void testCommit() throws Exception {
-        testTable.put("k","v");
-        testTable.put("x","y");
+        testTable.put("k", "v");
+        testTable.put("x", "y");
         assertEquals(2, testTable.commit());
     }
 
     @Test
     public void testRollback() throws Exception {
-        testTable.put("k","v");
+        testTable.put("k", "v");
         assertEquals(1, testTable.rollback());
     }
 
     @Test
     public void testList() throws Exception {
-        testTable.put("k","v");
-        testTable.put("x","y");
+        testTable.put("k", "v");
+        testTable.put("x", "y");
         List<String> trueResult = new ArrayList<String>(Arrays.asList(new String[]{"x", "k"}));
         assertEquals(trueResult, testTable.list());
     }

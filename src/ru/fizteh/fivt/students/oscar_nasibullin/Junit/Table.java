@@ -39,7 +39,7 @@ public class Table implements TableInterface {
     }
 
     @Override
-    public String get(String key) throws IllegalArgumentException{
+    public String get(String key) throws IllegalArgumentException {
         if (key == null) {
             throw new IllegalArgumentException("Illegal argument for get");
         }
@@ -105,7 +105,7 @@ public class Table implements TableInterface {
     public List<String> list() {
         List<String> keys = new ArrayList<String>();
         for (Map.Entry<DataFileHasher, DataFile> dataEntry : datFiles.entrySet()) {
-            for(Map.Entry<String,String> element : dataEntry.getValue().entrySet()) {
+            for (Map.Entry<String, String> element : dataEntry.getValue().entrySet()) {
                 keys.add(element.getKey());
             }
         }

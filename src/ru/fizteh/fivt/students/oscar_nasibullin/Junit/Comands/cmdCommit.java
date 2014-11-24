@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdCommit extends Command {
-    public cmdCommit() {
+public class CmdCommit extends Command {
+    public CmdCommit() {
         setName("commit");
     }
 

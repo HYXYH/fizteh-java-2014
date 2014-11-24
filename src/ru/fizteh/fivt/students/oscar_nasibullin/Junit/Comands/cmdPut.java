@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdPut extends Command {
-    public cmdPut() {
+public class CmdPut extends Command {
+    public CmdPut() {
         setName("put");
     }
 

@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdDrop extends Command {
-    public cmdDrop() {
+public class CmdDrop extends Command {
+    public CmdDrop() {
         setName("drop");
     }
 

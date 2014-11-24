@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class cmdRollback extends Command {
-    public cmdRollback() {
+public class CmdRollback extends Command {
+    public CmdRollback() {
         setName("rollback");
     }
 
