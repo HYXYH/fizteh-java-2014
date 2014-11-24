@@ -48,9 +48,9 @@ public class TableTest {
 
     @Test
     public void testPutNewElement() throws Exception {
-        assertEquals(null,testTable.put("key", "val"));
-        assertEquals(null,testTable.put("k", "v"));
-        assertEquals(null,testTable.put("x", "y"));
+        assertEquals(null, testTable.put("key", "val"));
+        assertEquals(null, testTable.put("k", "v"));
+        assertEquals(null, testTable.put("x", "y"));
     }
 
     @Test
