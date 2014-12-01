@@ -13,27 +13,12 @@ public class CmdExit extends Command {
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
+    public String run(List<String> args) {
         TableImpl currTable = tableProvider.getTable(currentTableName);
-        if (tableProvider.getTable(currentTableName) != null) {
-            Integer unsaved = tableProvider.getTable(currentTableName).unsavedChangesNum();
-            if (unsaved == 0) {
-                tableProvider.getTable(currentTableName).close();
-            } else {
-                throw new Exception(unsaved.toString() + " unsaved changes");
-            }
-        }
         try {
-            if (tableProvider.getTable(currentTableName) != null) {
-                currTable.close();
-            }
+            currTable.close();
         } catch (Exception e) {
-            if(e.getMessage() != null) {
-                System.err.println("exit error: " + e.getMessage());
-            }
-            else {
-                System.err.println("exit error: something went wrong when I tried to close current table");
-            }
+            System.err.println("exit error: " + e.getMessage());
             System.exit(1);
         }
         System.exit(0);
