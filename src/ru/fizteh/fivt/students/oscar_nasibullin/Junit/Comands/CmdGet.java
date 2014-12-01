@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CmdGet extends Command {
             throw new IllegalArgumentException("Illegal arguments for get");
         }
         String resultMessage = "";
-        Table currTable = tableProvider.getTable(currentTableName);
+        TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
             throw new Exception("no table");
         }

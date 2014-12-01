@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Interfaces.TableInterface;
+import ru.fizteh.fivt.storage.strings.Table;
 
 import java.io.*;
 import java.util.List;
@@ -11,16 +11,16 @@ import java.util.TreeMap;
 /**
  *  Created by Oskar on 15.11.14.
  */
-public class Table implements TableInterface {
+public class TableImpl implements Table {
 
     static final int NUMBER_DIRECTORIES = DataFileHasher.HASH_NUMBER;
     static final int NUMBER_FILES_IN_DIRECTORY = DataFileHasher.HASH_NUMBER;
 
-    private static Map<DataFileHasher, DataFile> datFiles;
+    private Map<DataFileHasher, DataFile> datFiles;
     public boolean isOpen;
     private final File tableRoot;
 
-    public Table(File table)  {
+    public TableImpl(File table)  {
         tableRoot = table;
         isOpen = false;
         try {
@@ -124,7 +124,6 @@ public class Table implements TableInterface {
         if (isOpen) {
             return;
         }
-        isOpen = true;
         datFiles = new TreeMap<>();
 
         if (!tableRoot.exists()) {
@@ -140,10 +139,10 @@ public class Table implements TableInterface {
                 datFiles.put(hasher, newDataFile);
             }
         }
+        isOpen = true;
     }
 
     public void close() throws Exception {
-        isOpen = false;
         if (!datFiles.isEmpty()) {
             for (Map.Entry<DataFileHasher, DataFile> entry : datFiles.entrySet()) {
                 entry.getValue().close();
@@ -159,6 +158,7 @@ public class Table implements TableInterface {
             }
             datFiles.clear();
         }
+        isOpen = false;
     }
 
     public void clear() {
