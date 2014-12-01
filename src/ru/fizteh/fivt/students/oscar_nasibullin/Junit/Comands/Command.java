@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProviderImpl;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProvider;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class Command {
 
     private String name;
-    public static TableProviderImpl tableProvider;
+    public static TableProvider tableProvider;
     public static String currentTableName; // or even whole Table ?
 
     public String getName() {

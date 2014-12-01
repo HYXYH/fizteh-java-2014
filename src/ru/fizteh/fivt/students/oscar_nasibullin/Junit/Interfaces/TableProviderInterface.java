@@ -1,9 +1,14 @@
-package ru.fizteh.fivt.storage.strings;
+package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Interfaces;
+
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
+
+import java.util.List;
+
 /**
  * @author Fedor Lavrentyev
  * @author Dmitriy Komanov
  */
-public interface TableProvider {
+public interface TableProviderInterface {
 
     /**
      * Возвращает таблицу с указанным названием.
@@ -13,6 +18,14 @@ public interface TableProvider {
      * @throws IllegalArgumentException Если название таблицы null или имеет недопустимое значение.
      */
     Table getTable(String name);
+
+
+    /**
+      * Возвращает имена существующих таблиц, которые могут быть получены с помощью {@link #getTable(String)}.
+      *
+      * @return Имена существующих таблиц.
+      */
+    List<String> getTableNames();
 
     /**
      * Создаёт таблицу с указанным названием.

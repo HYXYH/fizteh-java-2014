@@ -3,7 +3,7 @@ package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Tests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class TableTest {
-    TableImpl testTable;
+    Table testTable;
 
     @Before
     public void setUp() throws Exception {
@@ -22,7 +22,7 @@ public class TableTest {
         if (!tableFile.exists()) {
             tableFile.mkdir();
         }
-        testTable = new TableImpl(tableFile);
+        testTable = new Table(tableFile);
         testTable.open();
     }
 

@@ -1,13 +1,16 @@
-package ru.fizteh.fivt.storage.strings;
+package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Interfaces;
+
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProvider;
+
 /**
- * Представляет интерфейс для создание экземпляров {@link TableProvider}. Предполагается, что реализация интерфейса
+ * Представляет интерфейс для создание экземпляров {@link ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProvider}. Предполагается, что реализация интерфейса
  * фабрики будет иметь публичный конструктор без параметров.
  *
  * @author Fedor Lavrentyev
  * @author Dmitriy Komanov
  */
-public interface TableProviderFactory {
-    
+public interface TableProviderFactoryInterface {
+
     /**
      * Возвращает объект для работы с базой данных.
      *

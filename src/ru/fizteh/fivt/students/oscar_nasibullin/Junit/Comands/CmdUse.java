@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class CmdUse extends Command {
             throw new IllegalArgumentException("Illegal arguments for use");
         }
         String resultMessage;
-        TableImpl newTable = tableProvider.getTable(args.get(1));
+        Table newTable = tableProvider.getTable(args.get(1));
         if (newTable != null) {
             if (tableProvider.getTable(currentTableName) != null) {
                 Integer unsaved = tableProvider.getTable(currentTableName).unsavedChangesNum();

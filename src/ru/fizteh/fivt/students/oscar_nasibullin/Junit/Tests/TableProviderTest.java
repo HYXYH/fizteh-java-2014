@@ -3,7 +3,7 @@ package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Tests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProviderImpl;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProvider;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class TableProviderTest {
-    TableProviderImpl provider;
+    TableProvider provider;
 
     @Before
     public void setUp() throws Exception {
@@ -23,7 +23,7 @@ public class TableProviderTest {
         if (!tableFile.exists()) {
             tableFile.mkdir();
         }
-        provider = new TableProviderImpl(tableFile.getAbsolutePath());
+        provider = new TableProvider(tableFile.getAbsolutePath());
 
     }
 

@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CmdRollback extends Command {
             throw new IllegalArgumentException("Illegal arguments for rollback");
         }
         String resultMessage;
-        TableImpl currTable = tableProvider.getTable(currentTableName);
+        Table currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
             throw new Exception("no table");
         }

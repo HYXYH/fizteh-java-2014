@@ -17,8 +17,8 @@ public class Main {
 
     public static void main(final String[] args) {
         try {
-            TableProviderFactoryImpl factory = new TableProviderFactoryImpl();
-            TableProviderImpl provider = factory.create(System.getProperty("fizteh.db.dir"));
+            TableProviderFactory factory = new TableProviderFactory();
+            TableProvider provider = factory.create(System.getProperty("fizteh.db.dir"));
 
 
             Command[] commands = {
