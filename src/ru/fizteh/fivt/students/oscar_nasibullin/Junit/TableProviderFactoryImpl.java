@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Interfaces.TableProviderFactoryInterface;
+import ru.fizteh.fivt.storage.strings.TableProviderFactory;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -8,9 +8,9 @@ import java.nio.file.Paths;
 /**
  *  Created by Oskar on 15.11.14.
  */
-public class TableProviderFactory implements TableProviderFactoryInterface {
+public class TableProviderFactoryImpl implements TableProviderFactory {
     @Override
-    public TableProvider create(String dir) throws  IllegalArgumentException {
+    public TableProviderImpl create(String dir) throws  IllegalArgumentException {
         if (dir == null) {
             throw new IllegalArgumentException("TabeProviderFactory: no directory");
         }
@@ -29,6 +29,6 @@ public class TableProviderFactory implements TableProviderFactoryInterface {
            //  Todo: add to log in Proxy
             throw new IllegalArgumentException("TabeProviderFactory: database root directory error: " + e.getMessage());
         }
-        return new TableProvider(dir);
+        return new TableProviderImpl(dir);
     }
 }

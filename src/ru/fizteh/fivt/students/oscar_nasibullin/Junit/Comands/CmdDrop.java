@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CmdDrop extends Command {
             throw new IllegalArgumentException("Illegal arguments for drop");
         }
         String resultMessage = "";
-        Table dropTable = tableProvider.getTable(args.get(1));
+        TableImpl dropTable = tableProvider.getTable(args.get(1));
 
         if (dropTable == null) {
             resultMessage = args.get(1) + " not exists";

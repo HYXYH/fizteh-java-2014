@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Interfaces.TableProviderInterface;
+import ru.fizteh.fivt.storage.strings.TableProvider;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -12,12 +12,12 @@ import java.util.TreeMap;
 /**
  * Created by Oskar on 15.11.14.
  */
-public class TableProvider implements TableProviderInterface {
+public class TableProviderImpl implements TableProvider {
 
-    private Map<String, Table> tables;
+    private Map<String, TableImpl> tables;
     private String dbDir;
 
-    public TableProvider(String dir) {
+    public TableProviderImpl(String dir) {
         tables = new TreeMap<>();
         dbDir = dir;
         File[] tableFiles = Paths.get(dbDir).toFile().listFiles();
@@ -29,30 +29,30 @@ public class TableProvider implements TableProviderInterface {
     }
 
     @Override
-    public Table getTable(String name)  throws IllegalArgumentException {
+    public TableImpl getTable(String name)  throws IllegalArgumentException {
         if (name == null) {
             throw new IllegalArgumentException("Illegal argument for get table");
         }
         return tables.get(name); // todo: check for null
     }
 
-    @Override
+
     public List<String> getTableNames()  {
         List<String> names = new ArrayList<String>();
-        for (Map.Entry<String, Table> entry : tables.entrySet()) {
+        for (Map.Entry<String, TableImpl> entry : tables.entrySet()) {
             names.add(entry.getKey());
         }
         return names;
     }
 
     @Override
-    public Table createTable(String name) throws IllegalArgumentException {
+    public TableImpl createTable(String name) throws IllegalArgumentException {
         if (name == null) {
             throw new IllegalArgumentException("Illegal argument for create");
         }
 
         if (!tables.containsKey(name)) {
-            tables.put(name, new Table(Paths.get(dbDir + "/" + name).toFile()));
+            tables.put(name, new TableImpl(Paths.get(dbDir + "/" + name).toFile()));
             return tables.get(name);
         }
         return null;
@@ -61,7 +61,7 @@ public class TableProvider implements TableProviderInterface {
     @Override
     public void removeTable(String name) throws IllegalArgumentException {
         if (name == null) {
-            throw new IllegalArgumentException("Illegal argument for create");
+            throw new IllegalArgumentException("Illegal argument for remove");
         }
         if (!tables.containsKey(name)) {
             throw new IllegalStateException("Table not exist");

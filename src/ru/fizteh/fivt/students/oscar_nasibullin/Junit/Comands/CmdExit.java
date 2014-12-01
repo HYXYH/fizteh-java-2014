@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class CmdExit extends Command {
 
     @Override
     public String run(List<String> args) {
-        Table currTable = tableProvider.getTable(currentTableName);
+        TableImpl currTable = tableProvider.getTable(currentTableName);
         try {
             currTable.close();
         } catch (Exception e) {

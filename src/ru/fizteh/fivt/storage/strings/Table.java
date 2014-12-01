@@ -1,12 +1,11 @@
-package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Interfaces;
+package ru.fizteh.fivt.storage.strings;
 
 import java.util.List;
-
 /**
  * @author Fedor Lavrentyev
  * @author Dmitriy Komanov
  */
-public interface TableInterface {
+public interface Table {
 
     /**
      * Возвращает название базы данных.
@@ -51,7 +50,6 @@ public interface TableInterface {
      * @return Количество ключей в таблице.
      */
     int size();
-
     /**
      * Выполняет фиксацию изменений.
      *
@@ -65,7 +63,6 @@ public interface TableInterface {
      * @return Количество отменённых ключей.
      */
     int rollback();
-
     /**
      * Выводит список ключей таблицы
      *
@@ -73,3 +70,4 @@ public interface TableInterface {
      */
     List<String> list();
 }
+

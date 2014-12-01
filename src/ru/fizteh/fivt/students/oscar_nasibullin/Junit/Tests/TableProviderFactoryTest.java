@@ -3,18 +3,18 @@ package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Tests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProviderFactory;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProviderFactoryImpl;
 
 import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
 
 public class TableProviderFactoryTest {
-    TableProviderFactory factory;
+    TableProviderFactoryImpl factory;
 
     @Before
     public void setUp() throws Exception {
-        factory = new TableProviderFactory();
+        factory = new TableProviderFactoryImpl();
     }
 
     @After

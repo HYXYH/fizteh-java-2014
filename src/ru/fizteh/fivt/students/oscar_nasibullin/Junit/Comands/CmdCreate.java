@@ -1,6 +1,6 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.Table;
+import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableImpl;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CmdCreate extends Command {
             throw new IllegalArgumentException("Illegal arguments for create");
         }
         String resultMessage = "";
-        Table createTable = tableProvider.getTable(args.get(1));
+        TableImpl createTable = tableProvider.getTable(args.get(1));
 
         if (createTable != null) {
             resultMessage = args.get(1) + " exists";
