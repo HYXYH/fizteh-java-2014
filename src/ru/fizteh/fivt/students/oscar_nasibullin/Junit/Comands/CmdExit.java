@@ -28,10 +28,9 @@ public class CmdExit extends Command {
                 currTable.close();
             }
         } catch (Exception e) {
-            if(e.getMessage() != null) {
+            if (e.getMessage() != null) {
                 System.err.println("exit error: " + e.getMessage());
-            }
-            else {
+            } else {
                 System.err.println("exit error: something went wrong when I tried to close current table");
             }
             System.exit(1);
