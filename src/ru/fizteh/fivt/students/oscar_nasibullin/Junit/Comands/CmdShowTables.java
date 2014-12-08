@@ -13,11 +13,11 @@ public class CmdShowTables extends Command {
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 2) {
+        if (args.size() > 2) {
             throw new IllegalArgumentException(
                     "Illegal arguments for show tables");
         }
-        if (!args.get(1).equals("tables")) {
+        if (args.size() < 2 || !args.get(1).equals("tables")) {
             throw new Exception("show: no such command");
         }
         String resultMessage = "";

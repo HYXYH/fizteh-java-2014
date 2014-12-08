@@ -6,8 +6,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class DataFile implements Map<String, String> , AutoCloseable{
-    private final Map<String, String> getCache;
-    private final Map<String, String> putCache;
+    private final Map<String, String> storage;
+    private final Map<String, String> cache;
     private final DataFileHasher dataFileHasher ;
     private final File datFile;
     //boolean loaded = true;
@@ -21,8 +21,8 @@ public class DataFile implements Map<String, String> , AutoCloseable{
                 resolve(dataFileHasher.getDirNum().toString() + ".dir").
                 resolve(dataFileHasher.getFileNum().toString() + ".dat");
         datFile = datFilePath.toFile();
-        getCache = new TreeMap<String, String>();
-        putCache = new TreeMap<String, String>();
+        storage = new TreeMap<>();
+        cache = new TreeMap<>();
         importData();
     }
 
@@ -45,8 +45,8 @@ public class DataFile implements Map<String, String> , AutoCloseable{
 
     private  void importData() throws Exception {
         ByteArrayOutputStream bytesBuffer = new ByteArrayOutputStream();
-        List<Integer> offsets = new LinkedList<Integer>();
-        List<String> keys = new LinkedList<String>();
+        List<Integer> offsets = new LinkedList<>();
+        List<String> keys = new LinkedList<>();
         byte b;
         int bytesCounter = 0;
         int firstOffset = -1;
@@ -74,7 +74,7 @@ public class DataFile implements Map<String, String> , AutoCloseable{
                     offsets.add(datRAFile.readInt());
                 }
                 bytesCounter += 4;
-                keys.add(bytesBuffer.toString("UTF-8"));
+                keys.add(bytesBuffer.toString(DataFileHasher.ENCODING));
                 bytesBuffer.reset();
             } while (bytesCounter < firstOffset);
 
@@ -86,7 +86,7 @@ public class DataFile implements Map<String, String> , AutoCloseable{
                     bytesCounter++;
                 }
                 if (bytesBuffer.size() > 0) {
-                    getCache.put(keyIter.next(), bytesBuffer.toString("UTF-8"));
+                    storage.put(keyIter.next(), bytesBuffer.toString(DataFileHasher.ENCODING));
                     bytesBuffer.reset();
                 } else {
                     throw new IOException();
@@ -105,125 +105,135 @@ public class DataFile implements Map<String, String> , AutoCloseable{
         }
         try (RandomAccessFile datRAFile = new RandomAccessFile(datFile, "rw")) {
             datRAFile.setLength(0);
-            for (Entry<String, String> entry : getCache.entrySet()) {
+            for (Entry<String, String> entry : storage.entrySet()) {
                 offset += entry.getKey().length() + 5;
             }
-            for (Entry<String, String> entry : getCache.entrySet()) {
-                datRAFile.write(entry.getKey().getBytes("UTF-8"));
+            for (Entry<String, String> entry : storage.entrySet()) {
+                datRAFile.write(entry.getKey().getBytes(DataFileHasher.ENCODING));
                 datRAFile.write('\0');
                 datRAFile.writeInt(offset);
                 offset += entry.getValue().length();
             }
-            for (Entry<String, String> entry : getCache.entrySet()) {
-                datRAFile.write(entry.getValue().getBytes("UTF-8"));
+            for (Entry<String, String> entry : storage.entrySet()) {
+                datRAFile.write(entry.getValue().getBytes(DataFileHasher.ENCODING));
             }
         }
     }
 
     public int commit() {
-        for (Entry<String, String> entry : putCache.entrySet()) {
-            if (getCache.containsKey(entry.getKey())) {
-                getCache.remove(entry.getKey());
+        for (Entry<String, String> entry : cache.entrySet()) {
+            if (storage.containsKey(entry.getKey())) {
+                storage.remove(entry.getKey());
             }
-            getCache.put(entry.getKey(), entry.getValue());
+            if (!entry.getValue().equals("")) {
+                storage.put(entry.getKey(), entry.getValue());
+            }
         }
-        int saved = putCache.size();
-        putCache.clear();
+        int saved = cache.size();
+        cache.clear();
         return saved;
         //exportData(); Todo: should it be here?
     }
 
     public int rollback() {
-        int changesRolled = putCache.size();
-        putCache.clear();
+        int changesRolled = cache.size();
+        cache.clear();
         return changesRolled;
     }
 
     public int unsavedChangesNum() {
-        return putCache.size();
+        return cache.size();
     }
 
     @Override
     public int size() {
-        Map<String, String> merged = new TreeMap<>(getCache);
-        for (Entry<String, String> entry : putCache.entrySet()) {
+        Map<String, String> merged = new TreeMap<>(storage);
+        for (Entry<String, String> entry : cache.entrySet()) {
             if (merged.containsKey(entry.getKey())) {
                 merged.remove(entry.getKey());
             }
-            merged.put(entry.getKey(), entry.getValue());
+            if (!entry.getValue().equals("")) {
+                merged.put(entry.getKey(), entry.getValue());
+            }
         }
         return merged.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return putCache.isEmpty() || getCache.isEmpty();
+        return cache.isEmpty() && storage.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return putCache.containsKey(key) || getCache.containsKey(key);
+        return cache.containsKey(key) || storage.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return putCache.containsValue(value) || getCache.containsValue(value);
+        return cache.containsValue(value) || storage.containsValue(value);
     }
 
     @Override
     public String get(Object key) {
-        if (putCache.containsKey(key)) {
-            return putCache.get(key);
-        } else if (getCache.containsKey(key)) {
-            return getCache.get(key);
+        if (cache.containsKey(key)) {
+            if (cache.get(key).equals("")) {
+                return null;
+            }
+            return cache.get(key);
+        } else if (storage.containsKey(key)) {
+            return storage.get(key);
         }
         return null;
     }
 
     @Override
     public String put(String key, String value) {
-        return putCache.put(key, value);
+        if (cache.containsKey(key) && cache.get(key).equals("")) {
+            cache.remove(key);
+        }
+        return cache.put(key, value);
     }
 
     @Override
     public String remove(Object key) {
-        if (putCache.containsKey(key)) {
-            putCache.remove(key);
-        }
-        if (getCache.containsKey(key)) {
-            getCache.remove(key);
+        if (cache.containsKey(key) || storage.containsKey(key)) {
+            cache.remove(key);
+            cache.put((String) key, ""); // "" - means deleted
         }
         return null;
     }
 
     @Override
     public void putAll(Map<? extends String, ? extends String> m) {
-        putCache.putAll(m);
+        cache.putAll(m);
     }
 
     @Override
     public void clear() {
-        putCache.clear();
+        cache.clear();
     }
 
     @Override
     public Set<String> keySet() {
-        return getCache.keySet();
+        return storage.keySet();
     }
 
     @Override
     public Collection<String> values() {
-        return getCache.values();
+        return storage.values();
     }
 
     @Override
     public Set<Entry<String, String>> entrySet() {
-        Map<String, String> merged = new TreeMap<>(getCache);
-        for (Entry<String, String> entry : putCache.entrySet()) {
+        Map<String, String> merged = new TreeMap<>(storage);
+        for (Entry<String, String> entry : cache.entrySet()) {
             if (merged.containsKey(entry.getKey())) {
                 merged.remove(entry.getKey());
             }
-            merged.put(entry.getKey(), entry.getValue());
+            if (!entry.getValue().equals("")) {
+                merged.put(entry.getKey(), entry.getValue());
+            }
         }
         return merged.entrySet();
     }
@@ -231,18 +241,13 @@ public class DataFile implements Map<String, String> , AutoCloseable{
     @Override
     public void close() throws Exception {
         commit();
-        if (!getCache.isEmpty()) {
+        if (!storage.isEmpty()) {
             exportData();
-            putCache.clear();
-            getCache.clear();
+            cache.clear();
+            storage.clear();
         } else {
             datFile.delete();
         }
     }
 
-    public void clearAndDelete() {
-        putCache.clear();
-        getCache.clear();
-        datFile.delete();
-    }
 }

@@ -26,6 +26,8 @@ public class Shell {
         try (Scanner in = new Scanner(System.in)) {
             // "Try with resources" doesn't have to have a catch block.
             while (true) {
+                System.err.flush();
+                System.out.flush();
                 System.out.print("$ ");
                 String input = null;
                 input = in.nextLine();
@@ -71,6 +73,9 @@ public class Shell {
         } catch (Exception e) {
             if (e.getMessage() != null) {
                 System.err.println(e.getMessage());
+            } else {
+                System.err.println("Undefined Exception: ");
+                e.printStackTrace();
             }
             if (batchMode) {
                 System.exit(1);

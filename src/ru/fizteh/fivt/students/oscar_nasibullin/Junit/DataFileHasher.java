@@ -6,11 +6,12 @@ class DataFileHasher implements Comparable<DataFileHasher> {
     private final int ndir;
     private final int nfile;
     static final int HASH_NUMBER = 16;
+    static final String ENCODING = "UTF-8";
 
     public DataFileHasher(String key) throws IllegalArgumentException {
         try {
-            ndir = Math.abs(key.getBytes("UTF-8")[0] % HASH_NUMBER);
-            nfile = Math.abs((key.getBytes("UTF-8")[0] / HASH_NUMBER) % HASH_NUMBER);
+            ndir = Math.abs(key.getBytes(ENCODING)[0] % HASH_NUMBER);
+            nfile = Math.abs((key.getBytes(ENCODING)[0] / HASH_NUMBER) % HASH_NUMBER);
         } catch (UnsupportedEncodingException e) {
             throw new IllegalArgumentException("bad key in DataFileHasher constructor");
         }

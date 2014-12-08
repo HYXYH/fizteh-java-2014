@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdDrop extends Command {
     public CmdDrop() {
         setName("drop");
+        setArgs(2);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 2) {
-            throw new IllegalArgumentException("Illegal arguments for drop");
-        }
+        checkArgumentsAmount(args);
         String resultMessage = "";
         TableImpl dropTable = tableProvider.getTable(args.get(1));
 

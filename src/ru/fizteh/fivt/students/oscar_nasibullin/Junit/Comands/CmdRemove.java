@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdRemove extends Command {
     public CmdRemove() {
         setName("remove");
+        setArgs(2);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 2) {
-            throw new IllegalArgumentException("Illegal arguments for remove");
-        }
+        checkArgumentsAmount(args);
         String rezultMessage = "";
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {

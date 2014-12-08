@@ -12,7 +12,7 @@ public class TableProviderFactoryImpl implements TableProviderFactory {
     @Override
     public TableProviderImpl create(String dir) throws  IllegalArgumentException {
         if (dir == null) {
-            throw new IllegalArgumentException("TabeProviderFactory: no directory");
+            throw new IllegalArgumentException("TabeProviderFactory: no directory for database");
         }
 
         try {

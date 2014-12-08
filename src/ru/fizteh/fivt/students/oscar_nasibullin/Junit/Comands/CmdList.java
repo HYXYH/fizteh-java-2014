@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdList extends Command {
     public CmdList() {
         setName("list");
+        setArgs(1);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 1) {
-            throw new IllegalArgumentException("Illegal arguments for list");
-        }
+        checkArgumentsAmount(args);
         String resultMessage = "";
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
@@ -25,16 +24,7 @@ public class CmdList extends Command {
 
         boolean firstWord = true;
         List<String> keys = currTable.list();
-
-        for (String key : keys) {
-            if (firstWord) {
-                resultMessage = key;
-                firstWord = false;
-            } else {
-                resultMessage += ", " + key;
-            }
-        }
-
+        resultMessage = String.join(", ", keys);
         return resultMessage;
     }
 }

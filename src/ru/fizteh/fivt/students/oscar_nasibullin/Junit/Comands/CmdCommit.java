@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdCommit extends Command {
     public CmdCommit() {
         setName("commit");
+        setArgs(1);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 1) {
-            throw new IllegalArgumentException("Illegal arguments for commit");
-        }
+        checkArgumentsAmount(args);
         String resultMessage;
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {

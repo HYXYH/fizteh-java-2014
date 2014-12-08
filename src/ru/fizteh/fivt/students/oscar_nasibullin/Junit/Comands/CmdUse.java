@@ -11,13 +11,12 @@ public class CmdUse extends Command {
 
     public CmdUse() {
         setName("use");
+        setArgs(2);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 2) {
-            throw new IllegalArgumentException("Illegal arguments for use");
-        }
+        checkArgumentsAmount(args);
         String resultMessage;
         TableImpl newTable = tableProvider.getTable(args.get(1));
         if (newTable != null) {

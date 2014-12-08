@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdPut extends Command {
     public CmdPut() {
         setName("put");
+        setArgs(3);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 3) {
-            throw new IllegalArgumentException("Illegal arguments for put");
-        }
+        checkArgumentsAmount(args);
         String rezultMessage = "";
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {

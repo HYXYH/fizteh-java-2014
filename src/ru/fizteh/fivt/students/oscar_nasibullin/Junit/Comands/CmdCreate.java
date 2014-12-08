@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdCreate extends Command {
     public CmdCreate() {
         setName("create");
+        setArgs(2);
     }
 
     @Override
     public String run(List<String> args) {
-        if (args.size() != 2) {
-            throw new IllegalArgumentException("Illegal arguments for create");
-        }
+        checkArgumentsAmount(args);
         String resultMessage = "";
         TableImpl createTable = tableProvider.getTable(args.get(1));
 

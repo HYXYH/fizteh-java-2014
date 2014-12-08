@@ -33,7 +33,7 @@ public class Main {
             Shell client = new Shell(commandList, args);
         } catch (Exception e) {
             System.err.println("Fatal error: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
             System.exit(1);
         }
     }

@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdGet extends Command {
     public CmdGet() {
         setName("get");
+        setArgs(2);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 2) {
-            throw new IllegalArgumentException("Illegal arguments for get");
-        }
+        checkArgumentsAmount(args);
         String resultMessage = "";
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {

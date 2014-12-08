@@ -10,6 +10,7 @@ import java.util.List;
 public abstract class Command {
 
     private String name;
+    private int argumentsAmount = 0;
     public static TableProviderImpl tableProvider;
     public static String currentTableName; // or even whole Table ?
 
@@ -19,6 +20,15 @@ public abstract class Command {
 
     public void setName(String newName) {
         name = newName;
+    }
+    public void setArgs(int amount) {
+        argumentsAmount = amount;
+    }
+
+    public void checkArgumentsAmount(List<String> args) throws IllegalArgumentException {
+        if (argumentsAmount != args.size()) {
+            throw new IllegalArgumentException("Illegal arguments for " + name);
+        }
     }
 
     /**

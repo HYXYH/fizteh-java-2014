@@ -10,13 +10,12 @@ import java.util.List;
 public class CmdRollback extends Command {
     public CmdRollback() {
         setName("rollback");
+        setArgs(1);
     }
 
     @Override
     public String run(List<String> args) throws Exception {
-        if (args.size() != 1) {
-            throw new IllegalArgumentException("Illegal arguments for rollback");
-        }
+        checkArgumentsAmount(args);
         String resultMessage;
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
