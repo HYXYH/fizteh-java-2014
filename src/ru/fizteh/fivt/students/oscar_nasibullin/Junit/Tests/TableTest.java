@@ -103,15 +103,34 @@ public class TableTest {
     }
 
     @Test
-    public void testCommit() throws Exception {
+    public void testCommitNewElements() throws Exception {
         testTable.put("k", "v");
         testTable.put("x", "y");
         assertEquals(2, testTable.commit());
     }
 
     @Test
+    public void testCommitRemoveElements() throws Exception {
+        testTable.put("k", "v");
+        testTable.put("x", "y");
+        assertEquals(2, testTable.commit());
+        testTable.remove("k");
+        testTable.remove("x");
+        assertEquals(2, testTable.commit());
+    }
+
+    @Test
     public void testRollback() throws Exception {
         testTable.put("k", "v");
+        assertEquals(1, testTable.rollback());
+    }
+
+    @Test
+    public void testRollbackRemovedElements() throws Exception {
+        testTable.put("k", "v");
+        testTable.put("x", "y");
+        assertEquals(2, testTable.commit());
+        testTable.remove("x");
         assertEquals(1, testTable.rollback());
     }
 
