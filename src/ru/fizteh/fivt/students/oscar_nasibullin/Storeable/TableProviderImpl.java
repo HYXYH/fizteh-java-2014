@@ -97,7 +97,7 @@ public class TableProviderImpl implements TableProvider {
     }
 
     private Object castToType(String value, Class<?> type) throws Exception {
-        if (value.replaceAll("[ ]","").equals("null")) {
+        if (value.replaceAll("[ ]", "").equals("null")) {
             return null;
         }
         switch(type.getName()) {
@@ -122,9 +122,10 @@ public class TableProviderImpl implements TableProvider {
             case "java.lang.String":
                 return value;
                 //break;
+            default:
+                return value;
 
         }
-        return null;
     }
 
     private List<String> parseToList(String value) throws ParseException {
@@ -189,7 +190,7 @@ public class TableProviderImpl implements TableProvider {
             if (value.getColumnAt(i) == null) {
                 values.add("null");
             } else if (table.getColumnType(i) == String.class) {
-                values.add("\""+ value.getColumnAt(i) + "\"");
+                values.add("\"" + value.getColumnAt(i) + "\"");
             } else {
                 values.add(table.getColumnType(i).cast(value.getColumnAt(i)).toString());
             }
@@ -202,7 +203,7 @@ public class TableProviderImpl implements TableProvider {
     @Override
     public Storeable createFor(Table table) {
         List<Object> values = new ArrayList<>();
-        for(int i = 0; i < table.getColumnsCount(); i++) {
+        for (int i = 0; i < table.getColumnsCount(); i++) {
             values.add(null);
         }
         return new StoreableImpl(values, ((TableImpl) table).getTypes());
@@ -214,12 +215,12 @@ public class TableProviderImpl implements TableProvider {
             throw new IndexOutOfBoundsException();
         }
         List<Object> valuesToPut = new ArrayList<>();
-        for(int i = 0; i < table.getColumnsCount(); i++) {
+        for (int i = 0; i < table.getColumnsCount(); i++) {
             try {
                 valuesToPut.add(table.getColumnType(i).cast(values.get(i)));
             } catch (Exception e) {
-                throw new ColumnFormatException("Can't cast <" +
-                        values.get(i).toString() + "> to <" + table.getColumnType(i) );
+                throw new ColumnFormatException("Can't cast <"
+                        + values.get(i).toString() + "> to <" + table.getColumnType(i));
             }
         }
         return new StoreableImpl(valuesToPut, ((TableImpl) table).getTypes());

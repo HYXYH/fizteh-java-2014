@@ -21,7 +21,7 @@ public class CmdGet extends Command {
             throw new Exception("no table");
         }
 
-        String value = tableProvider.serialize(currTable ,currTable.get(args.get(1)));
+        String value = tableProvider.serialize(currTable, currTable.get(args.get(1)));
         if (value != null) {
             resultMessage = "found\n" + value;
         } else {

@@ -23,8 +23,8 @@ public class StoreableImpl implements Storeable {
     public void setColumnAt(int columnIndex, Object value) throws ColumnFormatException, IndexOutOfBoundsException {
         if (value.getClass() != types.get(columnIndex)) {
             throw new ColumnFormatException(
-                    "Storable: expected " + types.get(columnIndex).getName() +
-                            ", found " + value.getClass().getName());
+                    "Storable: expected " + types.get(columnIndex).getName()
+                            + ", found " + value.getClass().getName());
         }
         storage.set(columnIndex, types.get(columnIndex).cast(value)); // todo: check IndexOutOfBounds
     }
@@ -97,7 +97,7 @@ public class StoreableImpl implements Storeable {
         return (String) storage.get(columnIndex); //todo: check for null
     }
 
-    public List<Class<?>> getTypes () {
+    public List<Class<?>> getTypes() {
         return new ArrayList<>(types);
     }
 }

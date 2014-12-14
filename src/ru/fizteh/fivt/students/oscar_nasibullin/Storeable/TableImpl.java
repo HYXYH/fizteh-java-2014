@@ -37,7 +37,7 @@ public class TableImpl implements Table {
             close();
             File tsvFile =  tableRoot.toPath().resolve("signature.tsv").toFile();
             tsvFile.createNewFile();
-            RandomAccessFile sign = new RandomAccessFile( tsvFile, "rw");
+            RandomAccessFile sign = new RandomAccessFile(tsvFile, "rw");
             for (Class<?> type : types) {
                 sign.writeBytes(convertClassName(type.getName()) + " ");
             }
@@ -117,11 +117,11 @@ public class TableImpl implements Table {
 
     private void checkTableIsOpen() {
         if (!isOpen) {
-            throw new RuntimeException("Trying to operate with table <" + getName()+"> which is not open");
+            throw new RuntimeException("Trying to operate with table <" + getName() + "> which is not open");
         }
     }
 
-    public static String convertClassName (String name) {
+    public static String convertClassName(String name) {
         if (name.startsWith("java.lang.")) {
             name = name.replaceAll("(java.lang.)", "");
             if (name.equals("String")) {
@@ -134,20 +134,20 @@ public class TableImpl implements Table {
             name = "int";
         } else if (name.equals("String")) {
             return "java.lang.String";
-        } else if (name.substring(0,1).equals(name.substring(0,1).toUpperCase())) {
+        } else if (name.substring(0, 1).equals(name.substring(0, 1).toUpperCase())) {
             return name.toLowerCase();
         } else {
-            name = "java.lang." + name.substring(0,1).toUpperCase() + name.substring(1, name.length());
+            name = "java.lang." + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
         }
         return name;
     }
 
-    public boolean storeableIsSuitable (StoreableImpl value) {
+    public boolean storeableIsSuitable(StoreableImpl value) {
         List<Class<?>> storedTypes = value.getTypes();
         return types.equals(storedTypes);
     }
 
-    public List<Class<?>> getTypes () {
+    public List<Class<?>> getTypes() {
         return new ArrayList<>(types);
     }
 
@@ -170,7 +170,7 @@ public class TableImpl implements Table {
             throw new RuntimeException(e); //todo: try to catch in shell
         }
         data.remove(key);
-        data.put(key,provider.serialize((Table) this, value));
+        data.put(key, provider.serialize((Table) this, value));
 
         return result;
     }

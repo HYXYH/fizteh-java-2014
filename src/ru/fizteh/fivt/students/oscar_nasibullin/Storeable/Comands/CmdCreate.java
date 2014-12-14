@@ -34,7 +34,7 @@ public class CmdCreate extends Command {
                     try {
                         types.add(Class.forName(className));
                     } catch (ClassNotFoundException e) {
-                        throw new Exception("wrong type (no type with name: " + typeName.replaceAll("[()]", "") + ")", e);
+                        throw new Exception("wrong type (no type with name: " + typeName + ")", e);
                     }
                 }
             }
