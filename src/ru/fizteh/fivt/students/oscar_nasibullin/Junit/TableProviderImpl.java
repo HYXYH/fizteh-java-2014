@@ -52,7 +52,7 @@ public class TableProviderImpl implements TableProvider {
         }
 
         if (!tables.containsKey(name)) {
-            tables.put(name, new TableImpl(Paths.get(dbDir + "/" + name).toFile()));
+            tables.put(name, new TableImpl(Paths.get(dbDir).resolve(name).toFile()));
             return tables.get(name);
         }
         return null;

@@ -11,6 +11,7 @@ import java.util.Scanner;
  */
 public class Shell {
     List<Command> commandList;
+    static final String PROMPT = "$ ";
 
     public Shell(List<Command> commands, String[] args) {
         commandList = new ArrayList<Command>(commands);
@@ -22,13 +23,13 @@ public class Shell {
     }
 
     public void runInteractive() {
-        List<List<String>> commands = new ArrayList<>();
+        List<List<String>> commands;
         try (Scanner in = new Scanner(System.in)) {
             // "Try with resources" doesn't have to have a catch block.
             while (true) {
                 System.err.flush();
                 System.out.flush();
-                System.out.print("$ ");
+                System.out.print(PROMPT);
                 String input = null;
                 input = in.nextLine();
                 String[] args = new String[1];
@@ -41,7 +42,7 @@ public class Shell {
 
 
     public void runBatch(final String[] args) {
-        List<List<String>> commands = new ArrayList<>();
+        List<List<String>> commands;
 
         commands = parse(args);
         activator(commands, true);
@@ -51,7 +52,6 @@ public class Shell {
 
 
     public void activator(final List<List<String>> parsed, final boolean batchMode) {
-        boolean exitWithError = false;
         String rezultMessage = null;
         try {
             for (int i = 0; i < parsed.size(); i++) {
@@ -91,9 +91,9 @@ public class Shell {
         if (args.length == 1) { // Interactive parse.
             arguments = args[0].split(";");
             for (String arg : arguments) {
-                comAndArgs = new ArrayList<String>(Arrays.asList(arg.split(" ")));
+                comAndArgs = new ArrayList<>(Arrays.asList(arg.split(" ")));
                 if (comAndArgs.size() != 0) {
-                    commands.add(new ArrayList<String>(comAndArgs));
+                    commands.add(new ArrayList<>(comAndArgs));
                 }
                 comAndArgs.clear();
             }
