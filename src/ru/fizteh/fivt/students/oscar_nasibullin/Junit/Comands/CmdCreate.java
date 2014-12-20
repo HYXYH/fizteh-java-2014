@@ -7,25 +7,20 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdCreate extends Command {
+public class CmdCreate extends DataBaseCommand {
     public CmdCreate() {
-        setName("create");
-        setArgs(2);
+        super("create", 2);
     }
 
     @Override
-    public String run(List<String> args) {
-        checkArgumentsAmount(args);
-        String resultMessage = "";
+    public String execute(List<String> args) {
         TableImpl createTable = tableProvider.getTable(args.get(1));
 
         if (createTable != null) {
-            resultMessage = args.get(1) + " exists";
+            return args.get(1) + " exists";
         } else {
             tableProvider.createTable(args.get(1));
-            resultMessage = "created";
+            return "created";
         }
-
-        return resultMessage;
     }
 }

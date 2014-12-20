@@ -7,17 +7,14 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdUse extends Command {
+public class CmdUse extends DataBaseCommand {
 
     public CmdUse() {
-        setName("use");
-        setArgs(2);
+        super("use", 2);
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
-        checkArgumentsAmount(args);
-        String resultMessage;
+    public String execute(List<String> args) throws Exception {
         TableImpl newTable = tableProvider.getTable(args.get(1));
         if (newTable != null) {
             if (tableProvider.getTable(currentTableName) != null) {
@@ -30,11 +27,9 @@ public class CmdUse extends Command {
             }
             currentTableName = args.get(1);
             tableProvider.getTable(currentTableName).open();
-            resultMessage = "using " + currentTableName;
+            return "using " + currentTableName;
         } else {
-            resultMessage = args.get(1) + " not exists";
+            return args.get(1) + " not exists";
         }
-
-        return resultMessage;
     }
 }

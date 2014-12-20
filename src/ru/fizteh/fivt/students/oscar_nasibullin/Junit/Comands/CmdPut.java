@@ -7,16 +7,13 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdPut extends Command {
+public class CmdPut extends DataBaseCommand {
     public CmdPut() {
-        setName("put");
-        setArgs(3);
+        super("put", 3);
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
-        checkArgumentsAmount(args);
-        String rezultMessage = "";
+    public String execute(List<String> args) throws Exception {
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
             throw new Exception("no table");
@@ -24,10 +21,9 @@ public class CmdPut extends Command {
 
         String changed = currTable.put(args.get(1), args.get(2));
         if (changed != null) {
-            rezultMessage = "overwrite\n" + changed;
+            return "overwrite\n" + changed;
         } else {
-            rezultMessage = "new";
+            return "new";
         }
-        return rezultMessage;
     }
 }

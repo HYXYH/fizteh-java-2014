@@ -7,21 +7,18 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdRollback extends Command {
+public class CmdRollback extends DataBaseCommand {
     public CmdRollback() {
-        setName("rollback");
-        setArgs(1);
+        super("rollback", 1);
+
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
-        checkArgumentsAmount(args);
-        String resultMessage;
+    public String execute(List<String> args) throws Exception {
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
             throw new Exception("no table");
         }
-        resultMessage = new Integer(currTable.rollback()).toString();
-        return resultMessage;
+        return String.valueOf(currTable.rollback());
     }
 }

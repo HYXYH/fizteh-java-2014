@@ -7,15 +7,13 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdExit extends Command {
+public class CmdExit extends DataBaseCommand {
     public CmdExit() {
-        setName("exit");
-        setArgs(1);
+        super("exit");
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
-        checkArgumentsAmount(args);
+    public String execute(List<String> args) throws Exception {
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (tableProvider.getTable(currentTableName) != null) {
             Integer unsaved = tableProvider.getTable(currentTableName).unsavedChangesNum();

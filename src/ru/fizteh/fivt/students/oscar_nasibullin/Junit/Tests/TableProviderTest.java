@@ -29,12 +29,10 @@ public class TableProviderTest {
 
     @After
     public void tearDown() throws Exception {
-        File[] files = Paths.get("testTableProvider").toFile().listFiles();
-        for (File file : files) {
-            file.delete();
-        }
-        Paths.get("testTableProvider").toFile().delete();
+        UtilesForTesting.deleteRecursivly(Paths.get("testTableProvider").toFile());
     }
+
+
 
     @Test
     public void testGetTable() throws Exception {

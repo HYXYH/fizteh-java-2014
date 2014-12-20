@@ -6,11 +6,10 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class DataFile implements Map<String, String> , AutoCloseable{
-    private final Map<String, String> storage;
+    private Map<String, String> storage;
     private final Map<String, String> cache;
     private final DataFileHasher dataFileHasher ;
     private final File datFile;
-    //boolean loaded = true;
 
 
 
@@ -121,18 +120,16 @@ public class DataFile implements Map<String, String> , AutoCloseable{
     }
 
     public int commit() {
-        for (Entry<String, String> entry : cache.entrySet()) {
-            if (storage.containsKey(entry.getKey())) {
-                storage.remove(entry.getKey());
-            }
-            if (!entry.getValue().equals("")) {
-                storage.put(entry.getKey(), entry.getValue());
-            }
-        }
+
+        storage = merge(cache, storage);
         int saved = cache.size();
         cache.clear();
+        try {
+            exportData();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return saved;
-        //exportData(); Todo: should it be here?
     }
 
     public int rollback() {
@@ -147,16 +144,7 @@ public class DataFile implements Map<String, String> , AutoCloseable{
 
     @Override
     public int size() {
-        Map<String, String> merged = new TreeMap<>(storage);
-        for (Entry<String, String> entry : cache.entrySet()) {
-            if (merged.containsKey(entry.getKey())) {
-                merged.remove(entry.getKey());
-            }
-            if (!entry.getValue().equals("")) {
-                merged.put(entry.getKey(), entry.getValue());
-            }
-        }
-        return merged.size();
+        return merge(cache, storage).size();
     }
 
     @Override
@@ -226,8 +214,12 @@ public class DataFile implements Map<String, String> , AutoCloseable{
 
     @Override
     public Set<Entry<String, String>> entrySet() {
-        Map<String, String> merged = new TreeMap<>(storage);
-        for (Entry<String, String> entry : cache.entrySet()) {
+        return merge(cache, storage).entrySet();
+    }
+
+    private Map<String, String> merge(Map<String, String> from, Map<String, String> to) {
+        Map<String, String> merged = new TreeMap<>(to);
+        for (Entry<String, String> entry : from.entrySet()) {
             if (merged.containsKey(entry.getKey())) {
                 merged.remove(entry.getKey());
             }
@@ -235,7 +227,7 @@ public class DataFile implements Map<String, String> , AutoCloseable{
                 merged.put(entry.getKey(), entry.getValue());
             }
         }
-        return merged.entrySet();
+        return merged;
     }
 
     @Override

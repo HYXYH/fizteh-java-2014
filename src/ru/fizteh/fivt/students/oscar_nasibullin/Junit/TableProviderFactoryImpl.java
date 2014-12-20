@@ -22,7 +22,7 @@ public class TableProviderFactoryImpl implements TableProviderFactory {
                    // System.err.println("created root folder: " + dir);   Todo: add to log in Proxy
                 } else {
                    //  Todo: add to log in Proxy
-                    throw new IllegalArgumentException("TabeProviderFactory: folder not exist and cannot be created");
+                    throw new IllegalArgumentException("folder not exist and cannot be created");
                 }
             }
         } catch (Exception e) {

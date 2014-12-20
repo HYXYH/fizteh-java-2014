@@ -28,7 +28,7 @@ public class TableTest {
 
     @After
     public void tearDown() throws Exception {
-        Paths.get("testTable").toFile().delete();
+       UtilesForTesting.deleteRecursivly(Paths.get("testTable").toFile());
     }
 
     @Test
@@ -107,6 +107,8 @@ public class TableTest {
         testTable.put("k", "v");
         testTable.put("x", "y");
         assertEquals(2, testTable.commit());
+        assertEquals(testTable.get("k"), "v");
+        assertEquals(testTable.get("x"), "y");
     }
 
     @Test
@@ -114,15 +116,25 @@ public class TableTest {
         testTable.put("k", "v");
         testTable.put("x", "y");
         assertEquals(2, testTable.commit());
+        assertEquals(testTable.get("k"), "v");
+        assertEquals(testTable.get("x"), "y");
         testTable.remove("k");
         testTable.remove("x");
         assertEquals(2, testTable.commit());
+        assertEquals(testTable.get("k"), null);
+        assertEquals(testTable.get("x"), null);
     }
 
     @Test
     public void testRollback() throws Exception {
+        testTable.put("x", "y");
+        testTable.commit();
         testTable.put("k", "v");
+        assertEquals(testTable.get("k"), "v");
         assertEquals(1, testTable.rollback());
+        assertEquals(testTable.get("x"), "y");
+        assertEquals(testTable.get("k"), null);
+
     }
 
     @Test
@@ -131,7 +143,10 @@ public class TableTest {
         testTable.put("x", "y");
         assertEquals(2, testTable.commit());
         testTable.remove("x");
+        assertEquals(testTable.get("x"), null);
         assertEquals(1, testTable.rollback());
+        assertEquals(testTable.get("x"), "y");
+        assertEquals(testTable.get("k"), "v");
     }
 
     @Test

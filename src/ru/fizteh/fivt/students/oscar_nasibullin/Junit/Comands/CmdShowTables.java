@@ -5,14 +5,14 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdShowTables extends Command {
+public class CmdShowTables extends DataBaseCommand {
 
     public CmdShowTables() {
-        setName("show");
+        super("show");
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
+    public String execute(List<String> args) throws Exception {
         if (args.size() > 2) {
             throw new IllegalArgumentException(
                     "Illegal arguments for show tables");

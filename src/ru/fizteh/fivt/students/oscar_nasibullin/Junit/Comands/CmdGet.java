@@ -7,16 +7,13 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdGet extends Command {
+public class CmdGet extends DataBaseCommand {
     public CmdGet() {
-        setName("get");
-        setArgs(2);
+        super("get", 2);
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
-        checkArgumentsAmount(args);
-        String resultMessage = "";
+    public String execute(List<String> args) throws Exception {
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
             throw new Exception("no table");
@@ -24,10 +21,9 @@ public class CmdGet extends Command {
 
         String value = currTable.get(args.get(1));
         if (value != null) {
-            resultMessage = "found\n" + value;
+            return "found\n" + value;
         } else {
-            resultMessage = "not found";
+            return "not found";
         }
-        return resultMessage;
     }
 }

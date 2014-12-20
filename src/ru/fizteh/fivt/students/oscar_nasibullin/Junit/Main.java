@@ -21,15 +21,15 @@ public class Main {
             TableProviderImpl provider = factory.create(System.getProperty("fizteh.db.dir"));
 
 
-            Command[] commands = {
+            DataBaseCommand[] commands = {
                     new CmdCommit(), new CmdCreate(), new CmdDrop(), new CmdExit(),
                     new CmdGet(), new CmdList(), new CmdPut(), new CmdRemove(),
                     new CmdRollback(), new CmdShowTables(), new CmdUse()
             };
 
             List<Command> commandList = new ArrayList<Command>(Arrays.asList(commands));
-            Command.currentTableName = "";
-            Command.tableProvider = provider;
+            DataBaseCommand.currentTableName = "";
+            DataBaseCommand.tableProvider = provider;
             Shell client = new Shell(commandList, args);
         } catch (Exception e) {
             System.err.println("Fatal error: " + e.getMessage());

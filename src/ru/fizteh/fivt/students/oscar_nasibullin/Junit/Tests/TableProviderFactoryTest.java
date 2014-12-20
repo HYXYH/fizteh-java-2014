@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProviderFactoryImpl;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class TableProviderFactoryTest {
 
     @After
     public void tearDown() throws Exception {
-        Paths.get("./factoryTest").toFile().delete();
+        UtilesForTesting.deleteRecursivly(Paths.get("./factoryTest").toFile());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -35,6 +36,8 @@ public class TableProviderFactoryTest {
     @Test
     public void testCreate() throws Exception {
         factory.create("./factoryTest");
+        assertTrue(new File("./factoryTest").exists());
+        assertTrue(new File("./factoryTest").isDirectory());
     }
 
 }

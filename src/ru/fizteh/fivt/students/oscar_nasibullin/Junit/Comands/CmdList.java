@@ -7,24 +7,19 @@ import java.util.List;
 /**
  * Created by Oskar on 23.11.14.
  */
-public class CmdList extends Command {
+public class CmdList extends DataBaseCommand {
     public CmdList() {
-        setName("list");
-        setArgs(1);
+        super("list", 1);
     }
 
     @Override
-    public String run(List<String> args) throws Exception {
-        checkArgumentsAmount(args);
-        String resultMessage = "";
+    public String execute(List<String> args) throws Exception {
         TableImpl currTable = tableProvider.getTable(currentTableName);
         if (currTable == null) {
             throw new Exception("no table");
         }
 
-        boolean firstWord = true;
         List<String> keys = currTable.list();
-        resultMessage = String.join(", ", keys);
-        return resultMessage;
+        return String.join(", ", keys);
     }
 }

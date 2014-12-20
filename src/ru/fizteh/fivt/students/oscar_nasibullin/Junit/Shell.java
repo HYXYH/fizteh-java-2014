@@ -35,7 +35,7 @@ public class Shell {
                 String[] args = new String[1];
                 args[0] = input;
                 commands = parse(args);
-                activator(commands, false);
+                activate(commands, false);
             }
         }
     }
@@ -45,13 +45,13 @@ public class Shell {
         List<List<String>> commands;
 
         commands = parse(args);
-        activator(commands, true);
+        activate(commands, true);
 
         System.exit(0);
     }
 
 
-    public void activator(final List<List<String>> parsed, final boolean batchMode) {
+    public void activate(final List<List<String>> parsed, final boolean batchMode) {
         String rezultMessage = null;
         try {
             for (int i = 0; i < parsed.size(); i++) {
