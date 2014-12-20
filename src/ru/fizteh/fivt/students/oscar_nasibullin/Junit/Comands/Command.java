@@ -1,7 +1,5 @@
 package ru.fizteh.fivt.students.oscar_nasibullin.Junit.Comands;
 
-import ru.fizteh.fivt.students.oscar_nasibullin.Junit.TableProviderImpl;
-
 import java.util.List;
 
 /**
